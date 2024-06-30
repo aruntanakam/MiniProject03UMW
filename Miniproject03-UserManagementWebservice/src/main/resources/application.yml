@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: Miniproject03-UserManagementWebservice
+    
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/miniproject03umw
+    username: root
+    password: Admin@123
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+            required: 'true'
+          timeout: '3000'
+          auth: 'true'
+          connectiontimeout: '5000'
+          writetimeout: '5000'
+    host: smtp.gmail.com
+    username: aruntanakam0107@gmail.com
+    password: pzclqttkfcxamxqs
+    port: '587'
+
+    
+server:
+  port: 5000
+  
+  
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    
+  
