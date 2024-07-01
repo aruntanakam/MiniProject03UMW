@@ -1,6 +1,7 @@
 package com.umw.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,62 +136,65 @@ public class UserManagementServiceImpl implements IUserManagementService {
 	   }).toList();
 	}
 	
-	public UserRegisterDetails getUserDetails(String mailId)
+	public UserRegisterDetails getUserDetails(Integer id)
 	{
-		UserInfo info=repo.findByEmailId(mailId);
-		if(info!=null && info.getEmailId().equals(mailId))
+		Optional<UserInfo> opt=repo.findById(id);
+		if(opt.isPresent())
 		{
 			 UserRegisterDetails details=new UserRegisterDetails();
-			   BeanUtils.copyProperties(info, details);
+			   BeanUtils.copyProperties(opt.get(), details);
 			   return details;
 		}
 		else
 		{
-			throw new RuntimeException("There is no user with email Id:"+mailId);
+			throw new RuntimeException("There is no user with Id:"+opt.get().getUserId());
 		}
 	}
 	
-	public String deleteUser(String mailId)
+	public String deleteUser(Integer id)
 	{
-		UserInfo info=repo.findByEmailId(mailId);
-		if(info!=null && info.getEmailId().equals(mailId))
+		Optional<UserInfo> opt=repo.findById(id);
+		if(opt.isPresent())
 		{
-			 repo.deleteById(info.getUserId());
-			 return "user with mailId:"+mailId+" deleted successfully";
+			 repo.deleteById(id);
+			 return "user with Id:"+id+" deleted successfully";
 		}
 		else
 		{
-			throw new RuntimeException("There is no user with email Id:"+mailId);
+			throw new RuntimeException("There is no user with  Id:"+id);
 		}
 	}
 	
 	public String updateUser(UserRegisterDetails details)
 	{
-		UserInfo info=repo.findByEmailId(details.getEmailId());
-		if(info!=null && info.getEmailId().equals(details.getEmailId()))
+		Optional<UserInfo> opt=repo.findById(details.getUserId());
+		if(opt.isPresent())
 		{
+			UserInfo info=opt.get();
+			BeanUtils.copyProperties(details, info);
 			 repo.save(info);
-			 return "user with mailId:"+details.getEmailId()+"updated successfully";
+			 return "user with mailId:"+details.getEmailId()+" updated successfully";
 			 
 		}
 		else
 		{
-			throw new RuntimeException("There is no user with email Id:"+details.getEmailId());
+			throw new RuntimeException("There is no user with Id:"+details.getUserId());
 		}
 	}
 	
-	public String alterStatus(String mailId,String status)
+	public String alterStatus(Integer id,String status)
 	{
-		UserInfo info=repo.findByEmailId(mailId);
-		if(info!=null && info.getEmailId().equals(mailId))
+		Optional<UserInfo> opt=repo.findById(id);
+		if(opt.isPresent())
 		{
-			info.setStatus(status.equals("active")?"inactive":"active");
+			UserInfo info=opt.get();
+			info.setStatus(status);
 			repo.save(info);
-			return "user with mailId:"+mailId+" status changed to:"+info.getStatus();
+			return "user with id:"+id+" status changed to:"+info.getStatus();
 		} 
 		else
 		{
-			throw new RuntimeException("There is no user with email Id:"+mailId);
+			throw new RuntimeException("There is no user with  Id:"+id);
 		}
 		}
 		

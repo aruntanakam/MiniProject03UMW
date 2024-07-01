@@ -22,13 +22,13 @@ public interface IUserManagementService {
 	
 	public List<UserRegisterDetails> getUsers();
 	
-	public UserRegisterDetails getUserDetails(String mailId);
+	public UserRegisterDetails getUserDetails(Integer userId);
 	
-	public String deleteUser(String mailId);
+	public String deleteUser(Integer id);
 	
 	public String updateUser(UserRegisterDetails details);
 	
-	public String alterStatus(String mailId,String status);
+	public String alterStatus(Integer id,String status);
 	
 	
 	

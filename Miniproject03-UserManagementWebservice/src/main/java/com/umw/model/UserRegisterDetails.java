@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 public class UserRegisterDetails {
-
+  
+	private Integer userId;
+	
 	private String name;
 
 	private String emailId;
@@ -19,6 +21,6 @@ public class UserRegisterDetails {
 
 	private LocalDate dob;
 	
-	private String status="inactive";
+	private String status;
 
 }

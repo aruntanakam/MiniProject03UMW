@@ -67,10 +67,10 @@ public class UserManagementController {
 		return new ResponseEntity<>(service.getUsers(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/user/{mailId}")
-	public ResponseEntity<UserRegisterDetails> getUser(@PathVariable String mailId)
+	@GetMapping("/user/{id}")
+	public ResponseEntity<UserRegisterDetails> getUser(@PathVariable Integer id)
 	{
-		return new ResponseEntity<>(service.getUserDetails(mailId),HttpStatus.OK);
+		return new ResponseEntity<>(service.getUserDetails(id),HttpStatus.OK);
 	}
 	
 	@PutMapping("/updateUser")
@@ -79,16 +79,16 @@ public class UserManagementController {
 		return new ResponseEntity<String>(service.updateUser(details),HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deleteUser/{mailId}")
-	public ResponseEntity<String> deleteUser(@PathVariable String mailId )
+	@DeleteMapping("/deleteUser/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable Integer id )
 	{
-		return new ResponseEntity<>(service.deleteUser(mailId),HttpStatus.OK);
+		return new ResponseEntity<>(service.deleteUser(id),HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateStatus/{mailId}/{status}")
-	public ResponseEntity<String> alterStatus(@PathVariable String mailId,@PathVariable String status)
+	@PutMapping("/updateStatus/{id}/{status}")
+	public ResponseEntity<String> alterStatus(@PathVariable Integer id,@PathVariable String status)
 	{
-		return new ResponseEntity<String>(service.alterStatus(mailId, status),HttpStatus.OK);
+		return new ResponseEntity<String>(service.alterStatus(id, status),HttpStatus.OK);
 	}
 
 }
